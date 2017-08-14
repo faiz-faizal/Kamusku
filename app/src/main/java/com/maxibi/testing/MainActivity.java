@@ -1,7 +1,10 @@
 package com.maxibi.testing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -34,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
 
         CustomAdapter customAdapter = new CustomAdapter(this,quotes);
         listView.setAdapter(customAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(MainActivity.this, PopUp.class);
+                intent.putExtra("Word", quotes.get(position).bm);
+                intent.putExtra("Definition", quotes.get(position).bi);
+
+                startActivity(intent);
+            }
+        });
 
 
     }

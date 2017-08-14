@@ -50,10 +50,10 @@ public class CustomAdapter extends BaseAdapter {
         }
         else
         {
-            viewHolder = (ViewHolder) view.getTag();
+            viewHolder = (ViewHolder)view.getTag();
         }
 
-        viewHolder.itemName.setText(wordArrayList.get(i).bi);
+        viewHolder.itemName.setText(wordArrayList.get(i).bm);
 
         return view;
 
