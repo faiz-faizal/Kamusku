@@ -41,31 +41,39 @@ public class DatabaseAccess {
         }
     }
 
-    public ArrayList<String> getQuotes(){
-        ArrayList<String> list = new ArrayList<>();
-        String query = "SELECT * FROM quotes ";
-        Cursor cursor = sqlDatabase.rawQuery(query, null);
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
-            list.add(cursor.getString(0));
-            cursor.moveToNext();
+    public ArrayList<Word> getQuotes(){
+        ArrayList<String> listA = new ArrayList<String>();
+        ArrayList<String> listB = new ArrayList<String>();
+        ArrayList<Word> listC = new ArrayList<Word>();
+
+
+        String query1 = "SELECT bm FROM quotes ";
+        String query2 = "SELECT bi FROM quotes ";
+
+        Cursor cursor1 = sqlDatabase.rawQuery(query1, null);
+        Cursor cursor2 = sqlDatabase.rawQuery(query2, null);
+
+
+        cursor1.moveToFirst();
+        while(!cursor1.isAfterLast()){
+            listA.add(cursor1.getString(0));
+            cursor1.moveToNext();
         }
-        cursor.close();
-        return list;
+        cursor1.close();
+
+        cursor2.moveToFirst();
+        while(!cursor2.isAfterLast()){
+            listB.add(cursor2.getString(0));
+            cursor2.moveToNext();
+        }
+        cursor2.close();
+
+        for ( int i = 0; i < listA.size(); i++)
+        {
+            Word wordDefinition = new Word (listA.get(i),listB.get(i));
+            listC.add(wordDefinition);
+        }
+        return listC;
     }
 
-    public ArrayList<Word> getAllWords() {
-        ArrayList<Word> arrayList=new ArrayList<Word>();
-        this.sqlDatabase = opHelper.getWritableDatabase();
-
-        String selectAllQueryString="SELECT * FROM quotes";
-        Cursor cursor=sqlDatabase.rawQuery(selectAllQueryString, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-               Word wordDefinition=new Word(cursor.getString(cursor.getColumnIndex("bm")), cursor.getString(cursor.getColumnIndex("bi")));arrayList.add(wordDefinition);
-            } while (cursor.moveToNext());
-        }
-        return arrayList;
-    }
 }

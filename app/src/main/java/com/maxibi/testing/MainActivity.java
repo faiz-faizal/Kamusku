@@ -2,9 +2,6 @@ package com.maxibi.testing;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     public EditText editText;
     public TextView textView;
 
-    ArrayList<Word> definition =new ArrayList<Word>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,36 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
         final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-        ArrayList<String> quotes = databaseAccess.getQuotes(); // dapatkan semua qoutes
+        final ArrayList<Word> quotes = databaseAccess.getQuotes(); // dapatkan semua qoutes
 
-        definition = databaseAccess.getAllWords();
-        listView.setAdapter(new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return definition.size();
-            }
+        CustomAdapter customAdapter = new CustomAdapter(this,quotes);
+        listView.setAdapter(customAdapter);
 
-            @Override
-            public Object getItem(int i) {
-                return null;
-            }
 
-            @Override
-            public long getItemId(int i) {
-                return 0;
-            }
-
-            @Override
-            public View getView(int i, View view, ViewGroup viewGroup) {
-                if (view == null) {
-                    view = getLayoutInflater().inflate(R.layout.list_item,null);
-                }
-                ////add textview
-
-                return view;
-            }
-        });
-
-        databaseAccess.close();
     }
+
+
+
 }
