@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,29 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(intent);
             }
+        });
+
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = editText.getText().toString();
+
+                Word word = databaseAccess.getWord(str);
+
+                if (word == null)
+                {
+                    Toast.makeText(MainActivity.this, "Word Not Found",Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    Intent intent = new Intent(MainActivity.this, PopUp.class);
+                    intent.putExtra("Word", word.bm);
+                    intent.putExtra("Definition", word.bi);
+
+                    startActivity(intent);
+                }
+            }
+
         });
 
 

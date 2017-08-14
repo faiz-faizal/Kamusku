@@ -76,4 +76,15 @@ public class DatabaseAccess {
         return listC;
     }
 
+    public Word getWord( String w){
+        Word word = null;
+        String query ="SELECT * FROM quotes WHERE bm = '"+w+"'";
+        Cursor cursor = sqlDatabase.rawQuery(query, null);
+
+        if ( cursor.moveToFirst()){
+            word = new Word(cursor.getString(cursor.getColumnIndex("bm")), cursor.getString(cursor.getColumnIndex("bi")));
+        }
+        return word;
+    }
+
 }
