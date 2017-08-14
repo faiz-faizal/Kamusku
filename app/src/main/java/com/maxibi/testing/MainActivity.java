@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 if (view == null) {
                     view = getLayoutInflater().inflate(R.layout.list_item,null);
                 }
+                ////add textview
+
                 return view;
             }
         });
