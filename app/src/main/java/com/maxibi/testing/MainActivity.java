@@ -3,13 +3,14 @@ package com.maxibi.testing;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         databaseAccess.open();
         final ArrayList<Word> quotes = databaseAccess.getQuotes(); // dapatkan semua qoutes
 
-        CustomAdapter customAdapter = new CustomAdapter(this,quotes);
+        final CustomAdapter customAdapter = new CustomAdapter(this,quotes);
+
         listView.setAdapter(customAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,7 +52,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonSearch.setOnClickListener(new View.OnClickListener() {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                System.out.println("Text [" +charSequence+"]");
+                customAdapter.getFilter().filter(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+
+
+        /*buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String str = editText.getText().toString();
@@ -71,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-        });
+        });*/
 
 
     }
