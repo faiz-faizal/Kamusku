@@ -24,7 +24,7 @@
                 android:background="@drawable/edit_text_style"
                 android:hint="Cari"
                 android:lines="1"
-                android:textStyle="italic|bold"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_green_light"
                 android:textColorHint="#d9ffffff"

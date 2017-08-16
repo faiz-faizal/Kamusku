@@ -1,6 +1,7 @@
 package com.maxibi.testing;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,14 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
 
     private Context context;
     private ArrayList<Word> wordArrayList;
+    private ArrayList<Word> arrayList;
+
 
     //Constructor
     public CustomAdapter(Context context, ArrayList<Word> wordArrayList) {
         this.context = context;
         this.wordArrayList = wordArrayList;
+        this.arrayList = wordArrayList;
     }
 
     @Override
@@ -66,45 +70,47 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                FilterResults filterResult = new FilterResults();
-                if( charSequence == null || charSequence.length() == 0 )
-                {
-                    // no filter implement here
-                    filterResult.values = wordArrayList;
-                    filterResult.count = wordArrayList.size();
+                FilterResults filterResults = new FilterResults();
+                ArrayList<Word> tempArrayList = new ArrayList<Word>();
 
+                if( charSequence.length() == 0)
+                {
+                    //set the original result to return
+                    filterResults.count = arrayList.size();
+                    filterResults.values = arrayList;
+
+                    Log.d("abc", "running 00000000000000000000000000000000: ");
                 }
                 else
                 {
-                    // perform filter operation
-                    ArrayList<Word> temp = new ArrayList<Word>();
-                    for ( Word w : wordArrayList){
-                        if(w.getBm().toUpperCase().startsWith(charSequence.toString()
-                                .toUpperCase()))temp.add(w);
+                    charSequence = charSequence.toString().toLowerCase();
+                    for( int i = 0; i < arrayList.size(); i++ )
+                    {
+                        Word data = arrayList.get(i);
+                        if( data.getBm().toLowerCase().startsWith(charSequence.toString()))
+                        {
+                            tempArrayList.add(data);
+                        }
                     }
-                    filterResult.values = temp;
-                    filterResult.count = temp.size();
-                }
-                return filterResult;
+                    //set the filtered result to return
+                    filterResults.count = tempArrayList.size();
+                    filterResults.values = tempArrayList;
 
+                }
+
+                return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
-                //Inform adapter about new list filtered
-                if( filterResults.count == 0)
-                {
-                    notifyDataSetInvalidated();
-                }
-                else
-                {
-                    notifyDataSetChanged();
-                }
+                wordArrayList = (ArrayList<Word>) filterResults.values;
+
+                notifyDataSetInvalidated();
+                Log.d("abc", "running: ade masalah bro..." + charSequence.length());
+
             }
         };
-
-
     }
 
 

@@ -54,20 +54,20 @@ public class MainActivity extends AppCompatActivity {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                System.out.println("Text [" +charSequence+"]");
-                customAdapter.getFilter().filter(charSequence.toString());
+                customAdapter.getFilter().filter(charSequence);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
             }
         });
-
 
 
         /*buttonSearch.setOnClickListener(new View.OnClickListener() {
