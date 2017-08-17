@@ -27,6 +27,8 @@ public class PopUp extends Activity{
 
         msTextView.setText(getIntent().getStringExtra("Word"));
         enTextView.setText(getIntent().getStringExtra("Definition"));
+
+        Log.d("DICTIONARY","Set text started");
     }
 
 }

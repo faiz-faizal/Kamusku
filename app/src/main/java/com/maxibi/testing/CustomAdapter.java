@@ -36,9 +36,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public Object getItem(int position) {
-        return wordArrayList.get(position);
-    }
+    public Object getItem(int position) {return wordArrayList.get(position);}
 
     @Override
     public long getItemId(int position) {
@@ -68,6 +66,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
     public Filter getFilter() {
 
         return new Filter() {
+
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
@@ -84,9 +83,9 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
                 else
                 {
                     charSequence = charSequence.toString().toLowerCase();
-                    for( int i = 0; i < arrayList.size(); i++ )
+                    for( int i = 0; i < wordArrayList.size(); i++ )
                     {
-                        Word data = arrayList.get(i);
+                        Word data = wordArrayList.get(i);
                         if( data.getBm().toLowerCase().startsWith(charSequence.toString()))
                         {
                             tempArrayList.add(data);
@@ -104,9 +103,9 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
-                wordArrayList = (ArrayList<Word>) filterResults.values;
+                wordArrayList = (ArrayList<Word>) filterResults.values; //filter dalam arraylist ni
 
-                notifyDataSetInvalidated();
+                notifyDataSetChanged();
                 Log.d("abc", "running: ade masalah bro..." + charSequence.length());
 
             }

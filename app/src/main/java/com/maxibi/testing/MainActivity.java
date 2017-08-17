@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -40,17 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setAdapter(customAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent = new Intent(MainActivity.this, PopUp.class);
-                intent.putExtra("Word", quotes.get(position).bm);
-                intent.putExtra("Definition", quotes.get(position).bi);
-
-                startActivity(intent);
-            }
-        });
-
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -61,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 customAdapter.getFilter().filter(charSequence);
+
             }
 
             @Override
@@ -68,6 +59,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                Log.d("POSITON" , "POSTION " + position); //Check position
+                Intent intent = new Intent(MainActivity.this, PopUp.class);
+                intent.putExtra("Word", quotes.get(position).bm);
+                intent.putExtra("Definition", quotes.get(position).bi);
+
+                startActivity(intent);
+            }
+        });
+
+
 
 
         /*buttonSearch.setOnClickListener(new View.OnClickListener() {
