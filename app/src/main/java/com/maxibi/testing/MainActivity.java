@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -64,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                Log.d("POSITON" , "POSTION " + position); //Check position
+                int temp = customAdapter.getItemIndex(position);
                 Intent intent = new Intent(MainActivity.this, PopUp.class);
-                intent.putExtra("Word", quotes.get(position).bm);
-                intent.putExtra("Definition", quotes.get(position).bi);
+                intent.putExtra("Word", quotes.get(temp).bm);
+                intent.putExtra("Definition", quotes.get(temp).bi);
 
                 startActivity(intent);
             }

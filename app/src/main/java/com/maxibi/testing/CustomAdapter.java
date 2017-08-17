@@ -21,7 +21,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
     private Context context;
     private ArrayList<Word> wordArrayList;
     private ArrayList<Word> arrayList;
-
+    public int filterd;
 
     //Constructor
     public CustomAdapter(Context context, ArrayList<Word> wordArrayList) {
@@ -36,7 +36,9 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public Object getItem(int position) {return wordArrayList.get(position);}
+    public Object getItem(int position) {
+
+        return wordArrayList.get(position);}
 
     @Override
     public long getItemId(int position) {
@@ -70,7 +72,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
-                ArrayList<Word> tempArrayList = new ArrayList<Word>();
+                ArrayList<Word> tempArrayList = tempArrayList = new ArrayList<Word>();
 
                 if( charSequence.length() == 0)
                 {
@@ -89,6 +91,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
                         if( data.getBm().toLowerCase().startsWith(charSequence.toString()))
                         {
                             tempArrayList.add(data);
+                            filterd = i;
+
                         }
                     }
                     //set the filtered result to return
@@ -110,6 +114,12 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
 
             }
         };
+    }
+
+    /////////////////////////////////////////////////////
+    public int getItemIndex( int position)
+    {
+        return filterd;
     }
 
 
