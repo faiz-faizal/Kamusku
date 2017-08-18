@@ -91,7 +91,6 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
                         if( data.getBm().toLowerCase().startsWith(charSequence.toString()))
                         {
                             tempArrayList.add(data);
-                            filterd = i;
 
                         }
                     }
@@ -117,12 +116,10 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
     }
 
     /////////////////////////////////////////////////////
-    public int getItemIndex( int position)
-    {
-        return filterd;
+
+    public String getItemIndex(int position){
+        return wordArrayList.get(position).getBm();
     }
-
-
     /////////////////////////////////////////////////////
     private class ViewHolder {
         TextView itemName;

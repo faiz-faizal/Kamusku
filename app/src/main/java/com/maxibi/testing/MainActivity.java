@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -63,10 +64,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                int temp = customAdapter.getItemIndex(position);
                 Intent intent = new Intent(MainActivity.this, PopUp.class);
-                intent.putExtra("Word", quotes.get(temp).bm);
-                intent.putExtra("Definition", quotes.get(temp).bi);
+
+                Log.d("TEST", "TRY " + adapterView +" "+view+" "+position+" "+l+" "+customAdapter.getItem(position)+" "+customAdapter.getItemId(position) +" "+customAdapter.getItemIndex(position));
+                for( int i = 0; i< quotes.size(); i++)
+                {
+                    if( (quotes.get(i).getBm()).equals(customAdapter.getItemIndex(position)))
+                    {
+                        intent.putExtra("Word", quotes.get(i).bm);
+                        intent.putExtra("Definition", quotes.get(i).bi);
+                    }
+                }
 
                 startActivity(intent);
             }
