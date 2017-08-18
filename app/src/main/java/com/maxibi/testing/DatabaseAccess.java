@@ -42,7 +42,6 @@ public class DatabaseAccess {
     }
 
     public ArrayList<Word> getQuotes(){
-        int temp = 0;
         ArrayList<String> listA = new ArrayList<String>();
         ArrayList<String> listB = new ArrayList<String>();
         ArrayList<Word> listC = new ArrayList<Word>();
@@ -71,22 +70,19 @@ public class DatabaseAccess {
 
         for ( int i = 0; i < listA.size(); i++)
         {
-            Word wordDefinition = new Word (listA.get(i),listB.get(i), temp);
+            Word wordDefinition = new Word (listA.get(i),listB.get(i));
             listC.add(wordDefinition);
-            temp++;
         }
         return listC;
     }
 
     public Word getWord( String w){
-        int temp = 0;
         Word word = null;
         String query ="SELECT * FROM quotes WHERE bm = '"+w+"'";
         Cursor cursor = sqlDatabase.rawQuery(query, null);
 
         if ( cursor.moveToFirst()){
-            word = new Word(cursor.getString(cursor.getColumnIndex("bm")), cursor.getString(cursor.getColumnIndex("bi")), temp);
-            temp++;
+            word = new Word(cursor.getString(cursor.getColumnIndex("bm")), cursor.getString(cursor.getColumnIndex("bi")));
         }
         return word;
     }

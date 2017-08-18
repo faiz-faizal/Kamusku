@@ -6,13 +6,11 @@ package com.maxibi.testing;
 
 public class Word {
     String bm, bi;
-    int id;
 
-    public Word( String bm, String bi, int id)
+    public Word( String bm, String bi)
     {
         this.bm = bm;
         this.bi = bi;
-        this.id = id;
     }
 
     //getter
