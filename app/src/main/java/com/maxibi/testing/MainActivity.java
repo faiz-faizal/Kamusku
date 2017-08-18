@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("TEST", "TRY " + adapterView +" "+view+" "+position+" "+l+" "+customAdapter.getItem(position)+" "+customAdapter.getItemId(position) +" "+customAdapter.getItemIndex(position));
                 for( int i = 0; i< quotes.size(); i++)
                 {
-                    if( (quotes.get(i).getBm()).contains(customAdapter.getItemIndex(position)))
+                    if( (quotes.get(i).getBm()).equals(customAdapter.getItemIndex(position)))
                     {
                         intent.putExtra("Word", quotes.get(i).bm);
                         intent.putExtra("Definition", quotes.get(i).bi);

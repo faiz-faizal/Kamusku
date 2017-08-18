@@ -23,8 +23,6 @@
                 android:layout_weight="4"
                 android:background="@drawable/edit_text_style"
                 android:hint="Cari"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:lines="1"
                 android:textStyle="bold"
                 android:textAlignment="center"
@@ -40,7 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/list_view_style"
-            android:fastScrollEnabled="true"></ListView>
+            android:fastScrollEnabled="true">
+
+        </ListView>
 
     </LinearLayout>
 
