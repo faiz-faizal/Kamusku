@@ -48,8 +48,8 @@ public class DatabaseAccess {
         ArrayList<Word> listC = new ArrayList<Word>();
 
 
-        String query1 = "SELECT bm FROM quotes ";
-        String query2 = "SELECT bi FROM quotes ";
+        String query1 = "SELECT bm FROM quotes ORDER BY bm ASC ";
+        String query2 = "SELECT bi FROM quotes ORDER BY bm ASC ";
 
         Cursor cursor1 = sqlDatabase.rawQuery(query1, null);
         Cursor cursor2 = sqlDatabase.rawQuery(query2, null);

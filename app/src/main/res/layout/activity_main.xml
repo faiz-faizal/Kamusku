@@ -5,18 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:openDrawer="start"
-    android:background="@android:color/holo_blue_dark">
+    android:background="#FFFFFFFF">
 
     <include
         layout="@layout/app_bar_drawer"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:background="@drawable/navigation_style"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_drawer"
         app:menu="@menu/activity_drawer_drawer" />
@@ -24,8 +25,11 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@android:color/holo_blue_dark"
+        android:layout_marginTop="59dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/linearlayout_corner_style"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -46,7 +50,7 @@
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_green_light"
-                android:textColorHint="#d9ffffff"
+                android:textColorHint="#d9000000"
                 android:textColorLink="@android:color/holo_orange_dark" />
 
         </LinearLayout>
