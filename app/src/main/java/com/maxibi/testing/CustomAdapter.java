@@ -8,26 +8,60 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Set;
 
 /**
  * Created by User on 8/14/2017.
  */
 
-public class CustomAdapter extends BaseAdapter implements Filterable {
+public class CustomAdapter extends BaseAdapter implements Filterable, SectionIndexer {
 
     private Context context;
     private ArrayList<Word> wordArrayList;
     private ArrayList<Word> arrayList;
-    public int filterd;
+    private HashMap<String,Integer> mapIndex;
+    String[] sections;
 
     //Constructor
     public CustomAdapter(Context context, ArrayList<Word> wordArrayList) {
         this.context = context;
         this.wordArrayList = wordArrayList;
         this.arrayList = wordArrayList;
+
+       /////////////////////////////////////////////////////////
+        mapIndex = new HashMap<String ,Integer>();
+        for( int i = 0; i < wordArrayList.size(); i++)
+        {
+            String wordDex = wordArrayList.get(i).getBm();
+            String ch = wordDex.substring(0,1);
+            ch = ch.toUpperCase(Locale.UK);
+
+            //HashMap will prevent duplicate
+            mapIndex.put(ch,i);
+        }
+
+        Set<String> sectionLetters = mapIndex.keySet();
+
+        //create a list from the set to sort
+        ArrayList<String> sectionList = new ArrayList<String>(sectionLetters);
+        Log.d("SectionList"," "+sectionList.toString());
+        Collections.sort(sectionList);
+
+        sections = new String[sectionList.size()];
+        sectionList.toArray(sections); //masukkan ke dalam "sections" array
+
+        ///////////////////////////////////////Debug process
+                    for( int i = 0; i< sections.length;i++){
+                        Log.d("sections"," "+sections[i]);
+                    }
+        ///////////////////////////////////////////
     }
 
     @Override
@@ -120,6 +154,29 @@ public class CustomAdapter extends BaseAdapter implements Filterable {
     public String getItemIndex(int position){
         return wordArrayList.get(position).getBm();
     }
+
+    ///////////////////////////////////////////////////////
+    //SectionIndexer override method
+    @Override
+    public Object[] getSections()
+    {
+        return sections;
+    }
+
+    @Override
+    public int getPositionForSection(int i)
+    {
+        Log.d("getPositonForSection"," "+i);
+        return mapIndex.get(sections[i]);
+    }
+
+    @Override
+    public int getSectionForPosition(int i)
+    {
+        Log.d("getSectionForPosition"," "+ i);
+        return 0;
+    }
+
     /////////////////////////////////////////////////////
     private class ViewHolder {
         TextView itemName;

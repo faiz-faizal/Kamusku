@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, PopUp.class);
 
-                Log.d("TEST", "TRY " + adapterView +" "+view+" "+position+" "+l+" "+customAdapter.getItem(position)+" "+customAdapter.getItemId(position) +" "+customAdapter.getItemIndex(position));
+                Log.d("TEST", "TRY " + adapterView +" "+view+" "+position);
                 for( int i = 0; i< quotes.size(); i++)
                 {
                     if( (quotes.get(i).getBm()).equals(customAdapter.getItemIndex(position)))
