@@ -1,6 +1,7 @@
 package com.maxibi.testing;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,14 +21,12 @@ public class DrawerActivity extends AppCompatActivity
     DrawerLayout drawer;
 
     @Override
-    ///////////////////////////////////////////////////////////////////////
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -36,11 +35,34 @@ public class DrawerActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if (menuItem.isChecked())
+                    menuItem.setChecked(false);
+                else
+                    menuItem.setChecked(true);
+
+                drawer.closeDrawers();
+
+                switch (menuItem.getItemId()){
+                    case R.id.nav_bookmark:
+                        Log.d("abc","running............");
+                        Toast.makeText(DrawerActivity.this, "Bookmark clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.nav_Theme:
+                        Toast.makeText(DrawerActivity.this, "Theme clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.nav_About:
+                        Toast.makeText(DrawerActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
+                        return true;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
-    ///////////////////////////////////////////////////////////////////////////
     public void onBackPressed() {
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -51,52 +73,20 @@ public class DrawerActivity extends AppCompatActivity
     }
 
     @Override
-    //////////////////////////////////////////////////////////////////////
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawer, menu);
         return true;
     }
 
-    @Override
-    ////////////////////////////////////////////////////////////////
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    //////////////////////////////////////////////////////////
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-
-        int id = item.getItemId();
-
-            // Handle the camera action
-        if (id == R.id.nav_bookmark)
-        {
-            Log.d("This statement run"," ");
-            Toast.makeText(getApplicationContext(), "Home clicked", Toast.LENGTH_SHORT).show();
-            return true;
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
         }
-        else if (id == R.id.nav_About)
-        {}
-        else if (id == R.id.nav_Theme)
-        {}
-        else if (id == R.id.nav_share)
-        {}
-        //else if (id == R.id.nav_rate) {}
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return super.onOptionsItemSelected(menuItem);
     }
 }
