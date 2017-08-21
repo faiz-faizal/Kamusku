@@ -1,6 +1,7 @@
 package com.maxibi.testing;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -73,6 +73,18 @@ public class MainActivity extends AppCompatActivity
                     case R.id.nav_About:
                         Toast.makeText(MainActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
                         return true;
+                    case R.id.nav_share:
+                        //only support png image
+                        Uri imageUri = Uri.parse("android.resource://com.maxibi.testing/drawable/"+R.drawable.logo);
+                        Intent chooser;
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("image/*");
+                        intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                        intent.putExtra(Intent.EXTRA_TEXT,"Please Support Us By Downloading This Apps");
+                        chooser = Intent.createChooser(intent, "Send Image");
+                        startActivity(chooser);
+
+
                 }
                 return true;
             }
