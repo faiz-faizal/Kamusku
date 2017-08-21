@@ -15,9 +15,12 @@ import android.widget.Toast;
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    NavigationView navigationView = null;
     Toolbar toolbar = null;
+    DrawerLayout drawer;
 
     @Override
+    ///////////////////////////////////////////////////////////////////////
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -26,19 +29,20 @@ public class DrawerActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
+    ///////////////////////////////////////////////////////////////////////////
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -47,6 +51,7 @@ public class DrawerActivity extends AppCompatActivity
     }
 
     @Override
+    //////////////////////////////////////////////////////////////////////
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawer, menu);
@@ -54,6 +59,7 @@ public class DrawerActivity extends AppCompatActivity
     }
 
     @Override
+    ////////////////////////////////////////////////////////////////
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -70,6 +76,7 @@ public class DrawerActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
+    //////////////////////////////////////////////////////////
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
@@ -79,7 +86,7 @@ public class DrawerActivity extends AppCompatActivity
         if (id == R.id.nav_bookmark)
         {
             Log.d("This statement run"," ");
-            Toast.makeText(DrawerActivity.this, "Home clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Home clicked", Toast.LENGTH_SHORT).show();
             return true;
         }
         else if (id == R.id.nav_About)
@@ -89,7 +96,6 @@ public class DrawerActivity extends AppCompatActivity
         else if (id == R.id.nav_share)
         {}
         //else if (id == R.id.nav_rate) {}
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
