@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public ListView listView;
-    public Button buttonSearch;
+    //public Button buttonSearch;
     public EditText editText;
     public TextView textView;
 

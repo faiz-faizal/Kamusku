@@ -7,14 +7,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,7 @@ public class DrawerActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -37,7 +40,7 @@ public class DrawerActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -71,23 +74,23 @@ public class DrawerActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_history) {
             // Handle the camera action
-        } else if (id == R.id.nav_bookmark) {
-
-        } else if (id == R.id.nav_About) {
-
-        } else if (id == R.id.nav_Theme) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_rate) {
-
+        if (id == R.id.nav_bookmark)
+        {
+            Log.d("This statement run"," ");
+            Toast.makeText(getApplicationContext(), "Home clicked", Toast.LENGTH_SHORT).show();
+            return true;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        else if (id == R.id.nav_About)
+        {}
+        else if (id == R.id.nav_Theme)
+        {}
+        else if (id == R.id.nav_share)
+        {}
+        //else if (id == R.id.nav_rate) {}
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
