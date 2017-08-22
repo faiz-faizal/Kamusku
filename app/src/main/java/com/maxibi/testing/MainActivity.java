@@ -1,5 +1,6 @@
 package com.maxibi.testing;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +25,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mahfa.dnswitch.DayNightSwitch;
+import com.mahfa.dnswitch.DayNightSwitchListener;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -37,7 +42,8 @@ public class MainActivity extends AppCompatActivity
     public EditText editText;
     public TextView textView;
 
-
+    DayNightSwitch dayNightSwitch;
+    View background_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +74,30 @@ public class MainActivity extends AppCompatActivity
 
                 drawer.closeDrawers();
 
+                dayNightSwitch = (DayNightSwitch) findViewById(R.id.daynight);
+                background_view = findViewById(R.id.background_view);
+
+                dayNightSwitch.setDuration(450);
+                dayNightSwitch.setListener(new DayNightSwitchListener() {
+                    @Override
+                    public void onSwitch(boolean isNight) {
+                        if (isNight)
+                        {
+                            Toast.makeText(MainActivity.this, "Night mode selected", Toast.LENGTH_SHORT).show();
+                            background_view.setAlpha(1f);
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this, "Day mode selected", Toast.LENGTH_SHORT).show();
+                            background_view.setAlpha(0f);
+                        }
+                    }
+                });
+
                 switch (menuItem.getItemId()) {
                     case R.id.nav_bookmark:
                         Log.d("abc", "running............");
                         Toast.makeText(MainActivity.this, "Bookmark clicked", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.nav_Theme:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        menuItem.setTitle("Day Mode");
                         return true;
                     case R.id.nav_About:
                         Toast.makeText(MainActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
@@ -90,6 +112,25 @@ public class MainActivity extends AppCompatActivity
                         intent.putExtra(Intent.EXTRA_TEXT,"Please Support Us By Downloading This Apps");
                         chooser = Intent.createChooser(intent, "Send Image");
                         startActivity(chooser);
+                    case R.id.nav_logout:
+                        AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
+                        a_builder.setMessage("Do you want to close this App?")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int which) {
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int which) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+                        AlertDialog alert = a_builder.create();
+                        alert.setTitle("Exit!");
+                        alert.show();
 
 
                 }

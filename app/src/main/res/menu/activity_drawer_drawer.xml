@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">>
 
     <group android:checkableBehavior="single">
         <item
@@ -9,7 +10,8 @@
         <item
             android:id="@+id/nav_Theme"
             android:icon="@mipmap/ic_menu_night_mode"
-            android:title="Night Mode" />
+            android:title="Night Mode"
+            app:actionLayout="@layout/mode"/>
         <item
             android:id="@+id/nav_About"
             android:icon="@mipmap/ic_info_black_24dp"
@@ -24,6 +26,11 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@mipmap/ic_exit_to_app_black_24dp"
+                android:title="Exit" />
 
             <!--<item
                 android:id="@+id/nav_rate"

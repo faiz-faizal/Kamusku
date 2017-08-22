@@ -33,4 +33,7 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
 
     testCompile 'junit:junit:4.12'
+
+    //Add Library
+    compile 'com.github.Mahfa:DayNightSwitch:1.2'
 }
