@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,8 +38,13 @@ public class MainActivity extends AppCompatActivity
     public TextView textView;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_AUTO);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -68,7 +74,8 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(MainActivity.this, "Bookmark clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.nav_Theme:
-                        Toast.makeText(MainActivity.this, "Theme clicked", Toast.LENGTH_SHORT).show();
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        menuItem.setTitle("Day Mode");
                         return true;
                     case R.id.nav_About:
                         Toast.makeText(MainActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
