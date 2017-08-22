@@ -8,8 +8,8 @@
             android:title="Bookmark" />
         <item
             android:id="@+id/nav_Theme"
-            android:icon="@mipmap/ic_color_lens_black_24dp"
-            android:title="Theme" />
+            android:icon="@mipmap/ic_menu_night_mode"
+            android:title="Night Mode" />
         <item
             android:id="@+id/nav_About"
             android:icon="@mipmap/ic_info_black_24dp"
