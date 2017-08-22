@@ -131,8 +131,6 @@ public class MainActivity extends AppCompatActivity
                         AlertDialog alert = a_builder.create();
                         alert.setTitle("Exit!");
                         alert.show();
-
-
                 }
                 return true;
             }
