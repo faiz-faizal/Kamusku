@@ -42,7 +42,7 @@
                 android:lines="1"
                 android:textStyle="bold"
                 android:textAlignment="center"
-                android:textColor="@android:color/holo_green_light"
+                android:textColor="@color/colorAccentLightBlue"
                 android:textColorHint="#d9000000"
                 android:textColorLink="@android:color/holo_orange_dark" />
 
