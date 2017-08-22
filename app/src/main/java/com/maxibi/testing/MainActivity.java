@@ -9,7 +9,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView = null;
     Toolbar toolbar = null;
     DrawerLayout drawer;
+    Switch dayNightSwith;
 
     public ListView listView;
     //public Button buttonSearch;
@@ -42,8 +43,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_AUTO);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -73,10 +72,11 @@ public class MainActivity extends AppCompatActivity
                         Log.d("abc", "running............");
                         Toast.makeText(MainActivity.this, "Bookmark clicked", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.nav_Theme:
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        menuItem.setTitle("Day Mode");
-                        return true;
+
+                    case R.id.nav_Night:
+
+                    case R.id.nav_Day:
+
                     case R.id.nav_About:
                         Toast.makeText(MainActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
                         return true;

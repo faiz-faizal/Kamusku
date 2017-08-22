@@ -5,6 +5,11 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorAccentLightBlue</item>
         <item name="colorPrimaryDark">@color/colorDarkAccentLightBlue</item>
+
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorDarkAccentLightBlue</item>
+
+
     </style>
 
     <style name="AppTheme.NoActionBar">
