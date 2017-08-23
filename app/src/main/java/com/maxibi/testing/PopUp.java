@@ -58,11 +58,14 @@ public class PopUp extends Activity {
                //  if (number % 2 != 0) numberIsOdd
                 if( bookmarkSwith % 2 != 0 )
                 {
-                    Log.d("ONCLICK ", "itemClicked");
+                    Log.d("ONCLICK ", "itemClickedSetClicked");
                     ibBookmark.setImageResource(R.mipmap.ic_bookmark_set);
+
+                    databaseAccess.setBookmark(getIntent().getStringExtra("Word"));
                 }
                 else if( bookmarkSwith % 2 == 0)
                 {
+                    Log.d("ONCLICK ", "itemClickedUn-SetClicked");
                     ibBookmark.setImageResource(R.mipmap.ic_bookmark_unset);
                 }
                bookmarkSwith++;

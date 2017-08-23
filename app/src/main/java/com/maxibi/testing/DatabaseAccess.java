@@ -103,4 +103,17 @@ public class DatabaseAccess {
         return word;
     }
 
+    public void setBookmark(String bookmark)
+    {
+        String query = "UPDATE quotes SET bookmark = 1 WHERE bm = '"+bookmark+"'";
+        sqlDatabase.rawQuery(query, null);
+    }
+
+    public void unSetBookmark(String bookmark)
+    {
+        String query = "UPDATE quotes SET bookmark = null WHERE bm = '"+bookmark+"'";
+        sqlDatabase.rawQuery(query, null);
+    }
+
+
 }
