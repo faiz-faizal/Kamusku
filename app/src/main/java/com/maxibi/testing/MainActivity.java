@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 import com.mahfa.dnswitch.DayNightSwitch;
 import com.mahfa.dnswitch.DayNightSwitchListener;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity
 
     DayNightSwitch dayNightSwitch;
     View background_view;
+
+    final String TAG = this.getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +103,11 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(MainActivity.this, "Bookmark clicked", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.nav_About:
-                        Toast.makeText(MainActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder a_builder1 = new AlertDialog.Builder(MainActivity.this);
+                        a_builder1.setMessage("KamusKu version 1.0 from Maxibi IT Solutions. blablablablablablablablablablablabla");
+                        AlertDialog alert1 = a_builder1.create();
+                        alert1.setTitle("KamusKu 1.0");
+                        alert1.show();
                         return true;
                     case R.id.nav_share:
                         //only support png image
@@ -112,6 +119,7 @@ public class MainActivity extends AppCompatActivity
                         intent.putExtra(Intent.EXTRA_TEXT,"Please Support Us By Downloading This Apps");
                         chooser = Intent.createChooser(intent, "Send Image");
                         startActivity(chooser);
+                        return true;
                     case R.id.nav_logout:
                         AlertDialog.Builder a_builder = new AlertDialog.Builder(MainActivity.this);
                         a_builder.setMessage("Do you want to close this App?")
@@ -129,7 +137,6 @@ public class MainActivity extends AppCompatActivity
                                     }
                                 });
                         AlertDialog alert = a_builder.create();
-                        alert.setTitle("Exit!");
                         alert.show();
                 }
                 return true;
@@ -224,4 +231,33 @@ public class MainActivity extends AppCompatActivity
                 return true;
         }
         return super.onOptionsItemSelected(menuItem);
-}}
+    }
+    boolean twice = false;
+    @Override
+    public void onBackPressed() {
+
+        Log.d(TAG, "click");
+
+        if (twice == true){
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+        }
+        twice = true;
+        Log.d(TAG, "twice: " + twice);
+
+        //super.onBackPressed();
+        Toast.makeText(MainActivity.this, "Tap again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                twice = false;
+                Log.d(TAG, "twice: " + twice);
+            }
+        }, 3000);
+
+    }
+}
