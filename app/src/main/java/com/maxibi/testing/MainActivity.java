@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity
                         return true;
                     case R.id.nav_About:
                         AlertDialog.Builder a_builder1 = new AlertDialog.Builder(MainActivity.this);
-                        a_builder1.setMessage("KamusKu version 1.0 from Maxibi IT Solutions. blablablablablablablablablablablabla");
+                        a_builder1.setMessage("KamusKu version 1.0 from Maxibi IT Solutions. blablablablablablablablablablablabla" +
+                                "developer Faiz Faizal");
                         AlertDialog alert1 = a_builder1.create();
                         alert1.setTitle("KamusKu 1.0");
                         alert1.show();
