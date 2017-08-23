@@ -45,14 +45,18 @@ public class DatabaseAccess {
         int temp = 0;
         ArrayList<String> listA = new ArrayList<String>();
         ArrayList<String> listB = new ArrayList<String>();
+        ArrayList<String> listBookmark = new ArrayList<String >();
         ArrayList<Word> listC = new ArrayList<Word>();
 
 
         String query1 = "SELECT bm FROM quotes ORDER BY bm ASC ";
         String query2 = "SELECT bi FROM quotes ORDER BY bm ASC ";
+        String queryBookmark = "SELECT bookmark FROM quotes ORDER BY bm ASC";
+
 
         Cursor cursor1 = sqlDatabase.rawQuery(query1, null);
         Cursor cursor2 = sqlDatabase.rawQuery(query2, null);
+        Cursor cursorBookmark = sqlDatabase.rawQuery(queryBookmark, null);
 
 
         cursor1.moveToFirst();
@@ -69,9 +73,17 @@ public class DatabaseAccess {
         }
         cursor2.close();
 
+        cursorBookmark.moveToFirst();
+        while(!cursorBookmark.isAfterLast())
+        {
+            listBookmark.add(cursorBookmark.getString(0));
+            cursorBookmark.moveToNext();
+        }
+        cursorBookmark.close();
+
         for ( int i = 0; i < listA.size(); i++)
         {
-            Word wordDefinition = new Word (listA.get(i),listB.get(i), temp);
+            Word wordDefinition = new Word (listA.get(i),listB.get(i), temp, listBookmark.get(i));
             listC.add(wordDefinition);
             temp++;
         }
@@ -85,7 +97,7 @@ public class DatabaseAccess {
         Cursor cursor = sqlDatabase.rawQuery(query, null);
 
         if ( cursor.moveToFirst()){
-            word = new Word(cursor.getString(cursor.getColumnIndex("bm")), cursor.getString(cursor.getColumnIndex("bi")), temp);
+            word = new Word(cursor.getString(cursor.getColumnIndex("bm")), cursor.getString(cursor.getColumnIndex("bi")), temp, cursor.getString(cursor.getColumnIndex("bookmark")));
             temp++;
         }
         return word;

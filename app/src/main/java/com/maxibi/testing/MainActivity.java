@@ -21,13 +21,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
-
-import com.mahfa.dnswitch.DayNightSwitch;
-import com.mahfa.dnswitch.DayNightSwitchListener;
 
 import java.util.ArrayList;
 
@@ -42,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     //public Button buttonSearch;
     public EditText editText;
     public TextView textView;
+    public ImageButton ibBookmark;
 
 
     final String TAG = this.getClass().getName();
@@ -63,6 +62,12 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        ibBookmark = (ImageButton)findViewById(R.id.ibBookmark);
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -122,6 +127,16 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
         listView = (ListView) findViewById(R.id.listView);
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.test);
@@ -153,6 +168,13 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -164,12 +186,18 @@ public class MainActivity extends AppCompatActivity
                     if ((quotes.get(i).getBm()).equals(customAdapter.getItemIndex(position))) {
                         intent.putExtra("Word", quotes.get(i).bm);
                         intent.putExtra("Definition", quotes.get(i).bi);
+                        intent.putExtra("Bookmark",quotes.get(i).bookmark);
                     }
                 }
 
                 startActivity(intent);
             }
         });
+
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
     }
         /*buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +239,7 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(menuItem);
     }
+
     boolean twice = false;
     @Override
     public void onBackPressed() {

@@ -7,10 +7,11 @@
     android:layout_gravity="center">
 
     <LinearLayout
+        android:id="@+id/linearlayout_translate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@drawable/list_view_style"
+        android:background="@drawable/list_item_style"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -45,6 +46,16 @@
                 android:textStyle="italic" />
 
         </RelativeLayout>
-
     </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/ibBookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorless"
+        android:src="@mipmap/ic_bookmark_unset"
+        android:layout_below="@+id/linearlayout_translate"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

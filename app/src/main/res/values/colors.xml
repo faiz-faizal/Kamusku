@@ -10,5 +10,6 @@
     <color name="colorDarkAccentLightBlue">#4c7ab4</color>
     <color name="colorDarkAccentLightBlue4F">#4f4d7bb4</color>
     <color name="colorDarkAccentLightBlue8B">#8b89b9ee</color>
+    <color name="colorless">#00000000</color>
 
 </resources>

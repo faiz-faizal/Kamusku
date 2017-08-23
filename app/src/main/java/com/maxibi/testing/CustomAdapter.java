@@ -36,6 +36,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
         this.arrayList = wordArrayList;
 
        /////////////////////////////////////////////////////////
+       ///// THUMB INDEXER /////
+       ///////////////////////
         mapIndex = new HashMap<String ,Integer>();
         for( int i = 0; i < wordArrayList.size(); i++)
         {
@@ -44,7 +46,12 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
             ch = ch.toUpperCase(Locale.UK);
 
             //HashMap will prevent duplicate
-            mapIndex.put(ch,i);
+            if (!mapIndex.containsKey(ch))
+            {
+                mapIndex.put(ch, i);
+            }
+            //Hashmap will not prevent duplicate when
+            //declare only mapIndex.put(ch, i)
         }
 
         Set<String> sectionLetters = mapIndex.keySet();
@@ -52,6 +59,8 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
         //create a list from the set to sort
         ArrayList<String> sectionList = new ArrayList<String>(sectionLetters);
         Log.d("SectionList"," "+sectionList.toString());
+
+        //Collection.sort ni untuk susun huruf dari A-Z secara menaik
         Collections.sort(sectionList);
 
         sections = new String[sectionList.size()];
