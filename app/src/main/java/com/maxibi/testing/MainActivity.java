@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity
     public EditText editText;
     public TextView textView;
 
-    DayNightSwitch dayNightSwitch;
-    View background_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,26 +71,6 @@ public class MainActivity extends AppCompatActivity
                     menuItem.setChecked(true);
 
                 drawer.closeDrawers();
-
-                dayNightSwitch = (DayNightSwitch) findViewById(R.id.daynight);
-                background_view = findViewById(R.id.background_view);
-
-                dayNightSwitch.setDuration(450);
-                dayNightSwitch.setListener(new DayNightSwitchListener() {
-                    @Override
-                    public void onSwitch(boolean isNight) {
-                        if (isNight)
-                        {
-                            Toast.makeText(MainActivity.this, "Night mode selected", Toast.LENGTH_SHORT).show();
-                            background_view.setAlpha(1f);
-                        }
-                        else
-                        {
-                            Toast.makeText(MainActivity.this, "Day mode selected", Toast.LENGTH_SHORT).show();
-                            background_view.setAlpha(0f);
-                        }
-                    }
-                });
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_bookmark:
