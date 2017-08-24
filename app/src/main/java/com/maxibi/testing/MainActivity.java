@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +25,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
 import java.util.ArrayList;
 
@@ -48,8 +47,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_AUTO);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -83,7 +80,8 @@ public class MainActivity extends AppCompatActivity
                 switch (menuItem.getItemId()) {
                     case R.id.nav_bookmark:
                         Log.d("abc", "running............");
-                        Toast.makeText(MainActivity.this, "Bookmark clicked", Toast.LENGTH_SHORT).show();
+                        Intent intentd = new Intent(MainActivity.this, BookmarkActivity.class);
+                        startActivity(intentd);
                         return true;
                     case R.id.nav_About:
                         AlertDialog.Builder a_builder1 = new AlertDialog.Builder(MainActivity.this);
