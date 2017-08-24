@@ -1,5 +1,6 @@
 package com.maxibi.testing;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -105,14 +106,22 @@ public class DatabaseAccess {
 
     public void setBookmark(String bookmark)
     {
-        String query = "UPDATE quotes SET bookmark = 1 WHERE bm = '"+bookmark+"'";
-        sqlDatabase.rawQuery(query, null);
+        SQLiteDatabase sqLiteDatabase = opHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("bookmark","1");
+        // String query = "UPDATE quotes SET bookmark = null WHERE bm = '"+bookmark+"'";
+        sqlDatabase.update("quotes",contentValues,"bm = '"+bookmark+"'",null);
+        sqLiteDatabase.close();
     }
 
     public void unSetBookmark(String bookmark)
     {
-        String query = "UPDATE quotes SET bookmark = null WHERE bm = '"+bookmark+"'";
-        sqlDatabase.rawQuery(query, null);
+        SQLiteDatabase sqLiteDatabase = opHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("bookmark","null");
+        // String query = "UPDATE quotes SET bookmark = null WHERE bm = '"+bookmark+"'";
+        sqlDatabase.update("quotes",contentValues,"bm = '"+bookmark+"'",null);
+        sqLiteDatabase.close();
     }
 
 

@@ -1,6 +1,7 @@
 package com.maxibi.testing;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,15 +38,15 @@ public class PopUp extends Activity {
         enTextView.setText(getIntent().getStringExtra("Definition"));
 
 
-        if(getIntent().getStringExtra("Bookmark") == null)
+        if(getIntent().getStringExtra("Bookmark").equals("null"))
         {
-            //tukar image bookmark set
+            //tukar image bookmark unset
             ibBookmark.setImageResource(R.mipmap.ic_bookmark_unset);
             bookmarkSwith = 1; //odd
         }
-        else
+        else if(getIntent().getStringExtra("Bookmark").equals("1"))
         {
-            //tukar image bookmark unset
+            //tukar image bookmark set
             ibBookmark.setImageResource(R.mipmap.ic_bookmark_set);
             bookmarkSwith = 2; //even
 
@@ -56,27 +57,34 @@ public class PopUp extends Activity {
             public void onClick(View view) {
                // if (number % 2 == 0) numberIsEven
                //  if (number % 2 != 0) numberIsOdd
-                if( bookmarkSwith % 2 != 0 )
+                if( bookmarkSwith % 2 != 0 ) //1
                 {
+                    databaseAccess.open();
                     Log.d("ONCLICK ", "itemClickedSetClicked");
                     ibBookmark.setImageResource(R.mipmap.ic_bookmark_set);
-
                     databaseAccess.setBookmark(getIntent().getStringExtra("Word"));
                 }
-                else if( bookmarkSwith % 2 == 0)
+                else if( bookmarkSwith % 2 == 0) //2
                 {
+                    databaseAccess.open();
                     Log.d("ONCLICK ", "itemClickedUn-SetClicked");
                     ibBookmark.setImageResource(R.mipmap.ic_bookmark_unset);
+                    Log.d(""," ONCLKDFJKLSDFksd" + getIntent().getStringExtra("Word"));
+                    databaseAccess.unSetBookmark(getIntent().getStringExtra("Word"));
                 }
                bookmarkSwith++;
 
             }
         });
 
-
-
-
         Log.d("DICTIONARY","Set text started");
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent newIntent = new Intent(PopUp.this, MainActivity.class);
+        startActivity(newIntent);
+
+    }
 }
