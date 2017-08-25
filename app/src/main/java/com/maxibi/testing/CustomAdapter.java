@@ -41,7 +41,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
             if( wordArrayList.get(i).getBookmark().equals("1"))
             {
                 Word word = new Word(wordArrayList.get(i).getBm(), wordArrayList.get(i).getBi(), wordArrayList.get(i).id, wordArrayList.get(i).getBookmark());
-                bookmarkArrayList.add(word);
+              //  bookmarkArrayList.add(word);
 
             }
         }
