@@ -1,7 +1,6 @@
 package com.maxibi.testing;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,39 +25,72 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
     private Context context;
     private ArrayList<Word> wordArrayList;
     private ArrayList<Word> arrayList;
+    private ArrayList<Word> bookmarkArrayList;
     private HashMap<String,Integer> mapIndex;
     String[] sections;
+    int layout;
 
     //Constructor
-    public CustomAdapter(Context context, ArrayList<Word> wordArrayList) {
+    public CustomAdapter(Context context, ArrayList<Word> wordArrayList, int layout ) {
         this.context = context;
         this.wordArrayList = wordArrayList;
         this.arrayList = wordArrayList;
+        this.layout = layout;
+
+        for( int i = 0; i< wordArrayList.size(); i++){
+            if( wordArrayList.get(i).getBookmark().equals("1"))
+            {
+                Word word = new Word(wordArrayList.get(i).getBm(), wordArrayList.get(i).getBi(), wordArrayList.get(i).id, wordArrayList.get(i).getBookmark());
+                bookmarkArrayList.add(word);
+
+            }
+        }
 
        /////////////////////////////////////////////////////////
        ///// THUMB INDEXER /////
        ///////////////////////
         mapIndex = new HashMap<String ,Integer>();
-        for( int i = 0; i < wordArrayList.size(); i++)
-        {
-            String wordDex = wordArrayList.get(i).getBm();
-            String ch = wordDex.substring(0,1);
-            ch = ch.toUpperCase(Locale.UK);
 
-            //HashMap will prevent duplicate
-            if (!mapIndex.containsKey(ch))
+        if( layout == R.layout.list_item_bookmark){
+
+            for( int i = 0; i < bookmarkArrayList.size(); i++)
             {
-                mapIndex.put(ch, i);
+                String wordDex = bookmarkArrayList.get(i).getBm();
+                String ch = wordDex.substring(0,1);
+                ch = ch.toUpperCase(Locale.UK);
+
+                //HashMap will prevent duplicate
+                if (!mapIndex.containsKey(ch))
+                {
+                    mapIndex.put(ch, i);
+                }
+                //Hashmap will not prevent duplicate when
+                //declare only mapIndex.put(ch, i)
             }
-            //Hashmap will not prevent duplicate when
-            //declare only mapIndex.put(ch, i)
+        }
+        else
+        {
+            for( int i = 0; i < wordArrayList.size(); i++)
+            {
+                String wordDex = wordArrayList.get(i).getBm();
+                String ch = wordDex.substring(0,1);
+                ch = ch.toUpperCase(Locale.UK);
+
+                //HashMap will prevent duplicate
+                if (!mapIndex.containsKey(ch))
+                {
+                    mapIndex.put(ch, i);
+                }
+                //Hashmap will not prevent duplicate when
+                //declare only mapIndex.put(ch, i)
+            }
         }
 
         Set<String> sectionLetters = mapIndex.keySet();
 
         //create a list from the set to sort
         ArrayList<String> sectionList = new ArrayList<String>(sectionLetters);
-        Log.d("SectionList"," "+sectionList.toString());
+       // Log.d("SectionList"," "+sectionList.toString());
 
         //Collection.sort ni untuk susun huruf dari A-Z secara menaik
         Collections.sort(sectionList);
@@ -67,21 +99,37 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
         sectionList.toArray(sections); //masukkan ke dalam "sections" array
 
         ///////////////////////////////////////Debug process
-                    for( int i = 0; i< sections.length;i++){
-                        Log.d("sections"," "+sections[i]);
-                    }
+                //    for( int i = 0; i< sections.length;i++){
+                     //   Log.d("sections"," "+sections[i]);
+                   // }
         ///////////////////////////////////////////
     }
 
     @Override
     public int getCount() {
-        return wordArrayList.size();
+
+        if( layout == R.layout.list_item_bookmark){
+            return bookmarkArrayList.size();
+        }
+        else
+        {
+            return wordArrayList.size();
+        }
+
     }
 
     @Override
     public Object getItem(int position) {
 
-        return wordArrayList.get(position);}
+        if (layout == R.layout.list_item_bookmark)
+        {
+            return bookmarkArrayList.get(position);
+        }
+        else
+        {
+            return wordArrayList.get(position);
+        }
+    }
 
     @Override
     public long getItemId(int position) {
@@ -93,14 +141,36 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
 
         ViewHolder viewHolder;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.list_item, null);
+            if (layout == R.layout.list_item_bookmark)
+            {
+                view = LayoutInflater.from(context).inflate(R.layout.list_item_bookmark, null);
+            }
+
+            else
+            {
+                view = LayoutInflater.from(context).inflate(R.layout.list_item, null);
+            }
+
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
-        } else {
+        }
+
+        else
+        {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        viewHolder.itemName.setText(wordArrayList.get(i).bm);
+            if (layout == R.layout.list_item_bookmark)
+            {
+                viewHolder.itemName.setText(bookmarkArrayList.get(i).bm);
+            }
+
+            else
+            {
+                viewHolder.itemName.setText(wordArrayList.get(i).bm);
+            }
+
+
 
         return view;
 
@@ -123,7 +193,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
                     filterResults.count = arrayList.size();
                     filterResults.values = arrayList;
 
-                    Log.d("abc", "running 00000000000000000000000000000000: ");
+                   // Log.d("abc", "running 00000000000000000000000000000000: ");
                 }
                 else
                 {
@@ -152,7 +222,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
                 wordArrayList = (ArrayList<Word>) filterResults.values; //filter dalam arraylist ni
 
                 notifyDataSetChanged();
-                Log.d("abc", "running: ade masalah bro..." + charSequence.length());
+               // Log.d("abc", "running: ade masalah bro..." + charSequence.length());
 
             }
         };
@@ -161,7 +231,15 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
     /////////////////////////////////////////////////////
 
     public String getItemIndex(int position){
-        return wordArrayList.get(position).getBm();
+        if ( layout == R.layout.list_item_bookmark)
+        {
+            return bookmarkArrayList.get(position).getBm();
+        }
+        else
+        {
+            return wordArrayList.get(position).getBm();
+        }
+
     }
 
     ///////////////////////////////////////////////////////
@@ -175,14 +253,14 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
     @Override
     public int getPositionForSection(int i)
     {
-        Log.d("getPositonForSection"," "+i);
+       // Log.d("getPositonForSection"," "+i);
         return mapIndex.get(sections[i]);
     }
 
     @Override
     public int getSectionForPosition(int i)
     {
-        Log.d("getSectionForPosition"," "+ i);
+       // Log.d("getSectionForPosition"," "+ i);
         return 0;
     }
 

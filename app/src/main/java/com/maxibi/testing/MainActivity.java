@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity
         databaseAccess.open();
         final ArrayList<Word> quotes = databaseAccess.getQuotes(); // dapatkan semua qoutes
 
-        final CustomAdapter customAdapter = new CustomAdapter(this, quotes);
+        final CustomAdapter customAdapter = new CustomAdapter(this, quotes, R.layout.list_item);
 
         listView.setAdapter(customAdapter);
 
