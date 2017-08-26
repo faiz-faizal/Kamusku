@@ -1,7 +1,6 @@
 package com.maxibi.testing;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -80,11 +79,5 @@ public class PopUp extends Activity {
         Log.d("DICTIONARY","Set text started");
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-        Intent newIntent = new Intent(PopUp.this, MainActivity.class);
-        startActivity(newIntent);
 
-    }
 }

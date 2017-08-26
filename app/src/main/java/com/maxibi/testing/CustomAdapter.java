@@ -25,7 +25,6 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
     private Context context;
     private ArrayList<Word> wordArrayList;
     private ArrayList<Word> arrayList;
-    private ArrayList<Word> bookmarkArrayList;
     private HashMap<String,Integer> mapIndex;
     String[] sections;
     int layout;
@@ -37,53 +36,24 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
         this.arrayList = wordArrayList;
         this.layout = layout;
 
-        for( int i = 0; i< wordArrayList.size(); i++){
-            if( wordArrayList.get(i).getBookmark().equals("1"))
-            {
-                Word word = new Word(wordArrayList.get(i).getBm(), wordArrayList.get(i).getBi(), wordArrayList.get(i).id, wordArrayList.get(i).getBookmark());
-              //  bookmarkArrayList.add(word);
-
-            }
-        }
-
        /////////////////////////////////////////////////////////
        ///// THUMB INDEXER /////
        ///////////////////////
+
         mapIndex = new HashMap<String ,Integer>();
-
-        if( layout == R.layout.list_item_bookmark){
-
-            for( int i = 0; i < bookmarkArrayList.size(); i++)
-            {
-                String wordDex = bookmarkArrayList.get(i).getBm();
-                String ch = wordDex.substring(0,1);
-                ch = ch.toUpperCase(Locale.UK);
-
-                //HashMap will prevent duplicate
-                if (!mapIndex.containsKey(ch))
-                {
-                    mapIndex.put(ch, i);
-                }
-                //Hashmap will not prevent duplicate when
-                //declare only mapIndex.put(ch, i)
-            }
-        }
-        else
+        for( int i = 0; i < wordArrayList.size(); i++)
         {
-            for( int i = 0; i < wordArrayList.size(); i++)
-            {
-                String wordDex = wordArrayList.get(i).getBm();
-                String ch = wordDex.substring(0,1);
-                ch = ch.toUpperCase(Locale.UK);
+            String wordDex = wordArrayList.get(i).getBm();
+            String ch = wordDex.substring(0,1);
+            ch = ch.toUpperCase(Locale.UK);
 
-                //HashMap will prevent duplicate
-                if (!mapIndex.containsKey(ch))
-                {
-                    mapIndex.put(ch, i);
-                }
-                //Hashmap will not prevent duplicate when
-                //declare only mapIndex.put(ch, i)
+            //HashMap will prevent duplicate
+            if (!mapIndex.containsKey(ch))
+            {
+                mapIndex.put(ch, i);
             }
+            //Hashmap will not prevent duplicate when
+            //declare only mapIndex.put(ch, i)
         }
 
         Set<String> sectionLetters = mapIndex.keySet();
@@ -107,29 +77,13 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
 
     @Override
     public int getCount() {
-
-        if( layout == R.layout.list_item_bookmark){
-            return bookmarkArrayList.size();
-        }
-        else
-        {
-            return wordArrayList.size();
-        }
-
+       return wordArrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
 
-        if (layout == R.layout.list_item_bookmark)
-        {
-            return bookmarkArrayList.get(position);
-        }
-        else
-        {
-            return wordArrayList.get(position);
-        }
-    }
+        return wordArrayList.get(position);}
 
     @Override
     public long getItemId(int position) {
@@ -141,34 +95,16 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
 
         ViewHolder viewHolder;
         if (view == null) {
-            if (layout == R.layout.list_item_bookmark)
-            {
-                view = LayoutInflater.from(context).inflate(R.layout.list_item_bookmark, null);
-            }
-
-            else
-            {
-                view = LayoutInflater.from(context).inflate(R.layout.list_item, null);
-            }
+            view = LayoutInflater.from(context).inflate(R.layout.list_item, null);
 
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
-        }
-
-        else
-        {
+        } else {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-            if (layout == R.layout.list_item_bookmark)
-            {
-                viewHolder.itemName.setText(bookmarkArrayList.get(i).bm);
-            }
-
-            else
-            {
                 viewHolder.itemName.setText(wordArrayList.get(i).bm);
-            }
+
 
 
 
@@ -231,15 +167,7 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
     /////////////////////////////////////////////////////
 
     public String getItemIndex(int position){
-        if ( layout == R.layout.list_item_bookmark)
-        {
-            return bookmarkArrayList.get(position).getBm();
-        }
-        else
-        {
-            return wordArrayList.get(position).getBm();
-        }
-
+        return wordArrayList.get(position).getBm();
     }
 
     ///////////////////////////////////////////////////////
@@ -272,5 +200,12 @@ public class CustomAdapter extends BaseAdapter implements Filterable, SectionInd
             itemName = (TextView) view.findViewById(R.id.test);
         }
     }
+
+   public void refresh(ArrayList<Word> items)
+    {
+        this.arrayList = items;
+        notifyDataSetChanged();
+    }
+
 
 }

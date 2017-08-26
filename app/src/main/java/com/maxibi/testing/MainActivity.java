@@ -40,13 +40,15 @@ public class MainActivity extends AppCompatActivity
     public EditText editText;
     public TextView textView;
     public ImageButton ibBookmark;
+    private DatabaseAccess databaseAccess;
+    private ArrayList<Word> quotes;
+    private CustomAdapter customAdapter;
 
 
     final String TAG = this.getClass().getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -139,11 +141,11 @@ public class MainActivity extends AppCompatActivity
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.test);
 
-        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+        databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
-        final ArrayList<Word> quotes = databaseAccess.getQuotes(); // dapatkan semua qoutes
+        quotes = databaseAccess.getQuotes(); // dapatkan semua qoutes
 
-        final CustomAdapter customAdapter = new CustomAdapter(this, quotes, R.layout.list_item);
+        customAdapter = new CustomAdapter(this, quotes, R.layout.list_item);
 
         listView.setAdapter(customAdapter);
 
@@ -197,28 +199,15 @@ public class MainActivity extends AppCompatActivity
 
         ////////////////////////////////////////////////////////////////////////////////////////////
     }
-        /*buttonSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String str = editText.getText().toString();
 
-                Word word = databaseAccess.getWord(str);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        databaseAccess.open();
+        quotes = databaseAccess.getQuotes();
+        customAdapter.refresh(quotes);
+    }
 
-                if (word == null)
-                {
-                    Toast.makeText(MainActivity.this, "Word Not Found",Toast.LENGTH_SHORT).show();
-                }
-
-                else{
-                    Intent intent = new Intent(MainActivity.this, PopUp.class);
-                    intent.putExtra("Word", word.bm);
-                    intent.putExtra("Definition", word.bi);
-
-                    startActivity(intent);
-                }
-            }
-
-        });*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -266,4 +255,6 @@ public class MainActivity extends AppCompatActivity
         }, 3000);
 
     }
+
+
 }
